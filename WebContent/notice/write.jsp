@@ -1,6 +1,19 @@
 <!-- templete.html -->
 <%@ page pageEncoding ="utf-8"%>
 <%@ include file="../inc/header.jsp" %>
+<%
+	String tempPage = request.getParameter("page"); 
+	int cPage = 0; 
+	if(tempPage == null || tempPage.length()==0){
+		cPage = 1;
+	}
+	try{
+		cPage = Integer.parseInt(tempPage); 
+	}catch(NumberFormatException e){
+		cPage = 1; 
+	}
+		
+%>
   <!-- breadcrumb start -->
   <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
@@ -37,7 +50,7 @@
 				</form>
 
 	 	 <div class="text-right">
-	<a class="btn btn-secondary" href="list.jsp" role="button">리스트</a>
+	<a class="btn btn-secondary" href="list.jsp?page=<%=cPage %>" role="button">리스트</a>
 	<a class="btn btn-success" id="saveNotice" role="button">저장</a>					
 	
 					</div>
@@ -46,4 +59,11 @@
 		</div>	
 				
      <!-- container end -->
+     <script>
+     $(function(){
+    	 $('#saveNotice').click(function(){
+    		noticeForm.submit(); 	 
+    	 });
+     });
+     </script>
      <%@ include file="../inc/footer.jsp" %>
